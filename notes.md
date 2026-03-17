@@ -18,7 +18,7 @@ Ask yourself:
 - Are we preserving raw data as-is?
 - How do we handle missing months / bad files?
 
-👉 In your case:
+👉 In our case:
 
 - ERP data = clean, structured
 - Sports Bar = messy (spreadsheets, exports)
@@ -39,13 +39,13 @@ Key questions:
 
 - What do we do with missing data?
 
-👉 This is where you solve:
+👉 This is where we solve:
 
 “Nothing ties together”
 
 ### Gold Layer (Business-ready data)
 
-Now you're thinking like the COO:
+Now we're thinking like the COO:
 
 - Total sales across both companies
 - Inventory trends
@@ -56,5 +56,4 @@ Unified KPIs
 👉 This directly maps to:
 
 “One single reliable dashboard”
-
 
