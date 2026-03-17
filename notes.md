@@ -10,6 +10,13 @@
 
 “Building a unified, reliable analytics layer from messy + structured sources.”
 
+We will have data for both companies. We'll see things like:
+
+- Different table names for similar data (e.g., sales_data vs orders)
+- Different column names (cust_id vs customer_id)
+- Different structures (one normalized, one flat)
+- Missing or extra fields
+
 ### 1. Bronze Layer (Raw ingestion)
 
 Ask yourself:
@@ -57,3 +64,10 @@ Unified KPIs
 
 “One single reliable dashboard”
 
+### Note: 
+
+“I unified heterogeneous datasets from an ERP system and a startup by standardizing schemas, aligning business entities, and building a consistent data model in the Silver layer.”
+
+Whenever there is differences, ask:
+
+“How do I make these two datasets look like they came from the same system?”
