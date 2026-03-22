@@ -1,153 +1,126 @@
-## Atlikon Unified Data Platform
+# 📊 Atlikon Unified Data Platform
 
-### 🧩 Problem Statement
+## 🧩 Problem Statement
 
-Atlikon, a global sporting equipment manufacturer, recently acquired Sports Bar—a fast-growing startup in the athletic nutrition space. While Atlikon operates on structured, ERP-driven systems, Sports Bar’s data is fragmented across spreadsheets, cloud storage, and informal exports.
+Atlikon, a global sporting equipment manufacturer, acquired Sports Bar—a fast-growing startup in the athletic nutrition space. While Atlikon operates on structured ERP systems, Sports Bar’s data is fragmented across spreadsheets, cloud storage, and informal exports.
 
-Post-acquisition, this led to critical data challenges:
+This led to:
 
-* **Schema mismatches** between structured and semi-structured data
-* **Inconsistent and conflicting business metrics** across systems
-* **Missing historical data** due to rapid startup growth
-* **Misaligned reporting cycles** across both organizations
+* Schema mismatches
+* Inconsistent business metrics
+* Missing historical data
+* Misaligned reporting cycles
 
-These issues created a major bottleneck in building unified capabilities for **supply chain, forecasting, and inventory planning**.
-
----
-
-### 🎯 Project Goal
-
-The goal of this project is to design and implement a **scalable, reliable data platform** that unifies heterogeneous data from both organizations into a **single source of truth**.
-
-In this project, the parent company’s ERP data is already structured and analytics-ready, while the acquired startup’s data is fragmented and inconsistent. A **Medallion Architecture** is used where startup data undergoes full **Bronze → Silver → Gold** transformation, while the parent data requires minimal standardization. Both datasets are unified in the Gold layer to create a consistent data model for downstream analytics.
-
-#### Key Objectives
-
-* Enable **consistent and accurate analytics** across both companies
-* Build a **low-complexity, maintainable data pipeline**
-* Design a **scalable architecture** that supports future growth and acquisitions
-
-The solution leverages the **Medallion Architecture (Bronze → Silver → Gold)** to progressively refine raw data into business-ready insights.
+These issues blocked unified analytics for **supply chain, forecasting, and inventory planning**.
 
 ---
 
-### 🛠️ Tech Stack
+## 🎯 Project Goal
 
-* **Databricks** – Unified data platform for processing and analytics
-* **Python (PySpark)** – Data transformation and pipeline development
-* **SQL** – Data querying and transformations
-* **Amazon S3** – Scalable data lake storage for raw data ingestion
-* **Medallion Architecture** – Layered data engineering design
+Design a **scalable and reliable data platform** that unifies data from both companies into a **single source of truth**.
 
----
+* ERP data (parent) → already structured
+* Startup data (child) → cleaned and standardized through pipeline
 
-### 🏗️ Architecture Overview
-
-#### 🟤 Bronze Layer (Raw Data Ingestion)
-
-* Ingest raw data from multiple sources:
-
-  * ERP systems (Atlikon)
-  * Spreadsheets & exports (Sports Bar)
-* Preserve data in its original form for **traceability and auditing**
+Both are unified in the **Gold layer** for consistent analytics.
 
 ---
 
-#### ⚪ Silver Layer (Data Cleaning & Standardization)
+## 🛠️ Tech Stack
 
-* Resolve schema mismatches across systems
-* Standardize:
-
-  * Column names
-  * Data types
-  * Business entities (e.g., products, customers)
-* Handle missing values and deduplicate records
-* Apply data validation and cleaning logic
+* **Databricks** – Data processing & orchestration
+* **PySpark (Python)** – Transformations
+* **SQL** – Querying & aggregations
+* **Amazon S3** – Data lake storage
+* **Medallion Architecture** – Bronze → Silver → Gold
 
 ---
 
-#### 🟡 Gold Layer (Business-Ready Data)
+## 🏗️ Architecture Overview
 
-* Build **aggregated datasets and KPIs**
-* Provide a **single source of truth** for:
+### 🟤 Bronze (Raw)
 
-  * Sales performance
-  * Inventory insights
-  * Forecasting inputs
+* Ingest data from ERP, CSVs, and exports
+* Preserve raw data for traceability
+
+### ⚪ Silver (Cleaned)
+
+* Standardize schema, column names, and data types
+* Handle nulls and deduplicate records
+
+### 🟡 Gold (Business Layer)
+
+* Build KPIs and aggregated datasets
+* Enable reporting and analytics
 
 ---
 
-### Pipeline Orchestration
+## ⚙️ Pipeline Orchestration
 
-The data pipeline is orchestrated using **Databricks Jobs**, where each layer is executed as a separate task:
+Pipelines are automated using **Databricks Jobs**:
 
-* Bronze Ingestion → Raw data ingestion from multiple sources
-* Silver Transformation → Data cleaning and standardization
-* Gold Aggregation → Business-level metrics and reporting datasets
-
-Task dependencies are defined to ensure a sequential flow:
-
-```text
+```
 Bronze → Silver → Gold
 ```
 
-This enables reliable, repeatable, and automated pipeline execution.
+Each layer runs as a dependent task, ensuring reliable and repeatable execution.
 
 ---
 
-### 📈 Outcome
+## 📊 Sample Analytics Output
 
-This project delivers a unified and scalable data foundation that enables:
+As a proof of the unified data platform, a sample dashboard was created to demonstrate business insights:
+
+* Total Revenue and Volume sold per each year, quarter, month, or channel
+* Top-performing products by Revenue.
+* Revenue by Channel
+* Monthly Revenue Trend
+* Channel-wise Category Performance Summary
+
+📄 **Full Dashboard:**
+[Download PDF](./code/4_dashboarding/sales_dashboard.pdf)
+
+#### Preview
+
+![Dashboard Overview](./images/img1.png)
+![Monthly Revenue Trend](./images/img2.png)
+![Top Products](./images/img3.png)
+
+---
+
+## ⚠️ Key Challenges & Solutions
+
+**Schema Mismatch**
+→ Standardized schemas in Silver layer
+
+**Inconsistent Metrics**
+→ Defined centralized KPIs in Gold layer
+
+**Missing Data**
+→ Preserved raw data and handled nulls systematically
+
+**Misaligned Reporting**
+→ Standardized time formats and aggregations
+
+**Scalability**
+→ Designed using Medallion Architecture with Databricks + S3
+
+---
+
+## 📈 Outcome
 
 * Reliable cross-company reporting
-* Consistent and trusted business metrics
-* A unified data model across both organizations
-* A future-ready architecture for scaling and new acquisitions
+* Consistent business metrics
+* Unified data model
+* Scalable foundation for future growth
 
 ---
 
-### Key Challenges & Solutions
+## 🔮 Future Enhancements
 
-#### 1. Schema Mismatch
-
-Structured ERP data vs fragmented startup data with inconsistent column names and schemas across similar entities.
-→ Resolved through schema standardization and column alignment in the **Silver layer**
-
----
-
-#### 2. Inconsistent Metrics
-
-Conflicting definitions of sales and KPIs across systems
-→ Established centralized KPI definitions in the **Gold layer**
-
----
-
-#### 3. Missing Data
-
-Incomplete historical records due to rapid startup growth
-→ Preserved raw data in Bronze and handled nulls systematically during transformation
-
----
-
-#### 4. Misaligned Reporting Cycles
-
-Different reporting granularities (daily vs monthly)
-→ Standardized time formats and built flexible aggregations
-
----
-
-#### 5. Scalability
-
-Need to support long-term growth and future integrations
-→ Designed using **Medallion Architecture with Databricks + S3**
-
----
-
-### 🔮 Future Enhancements
-
-* Implement demand forecasting using machine learning
-* Add data quality monitoring and alerting layer
-* Introduce incremental data processing using Change Data Feed
-* Extend pipeline to support real-time data ingestion
+* Add ML-based forecasting
+* Implement data quality monitoring
+* Use incremental processing (Change Data Feed)
+* Support real-time data ingestion
 
 ---
